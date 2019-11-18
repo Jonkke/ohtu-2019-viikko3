@@ -16,6 +16,37 @@ public class Stepdefs {
     WebDriver driver = new HtmlUnitDriver();
     String baseUrl = "http://localhost:4567";
     
+    // USER CREATION TESTS
+    
+    @Given("command new user is selected")
+    public void newUserIsSelected() {
+        driver.get(baseUrl);
+        WebElement element = driver.findElement(By.linkText("register new user"));
+        element.click();
+    }
+    
+    @Given("a valid username {string} and a valid password {string} and matching password confirmation are entered")
+    public void validUsernameAndPasswordAreGiven(String username, String password) {
+        registerWith(username, password);
+    }
+    
+    @Given("a too short username {string} and password {string} and matching password confirmation are entered")
+    public void tooShortUsernameAndPasswordAreGiven(String username, String password) {
+        registerWith(username, password);
+    }
+    
+    @Then("a new user is created")
+    public void newUserIsCreated() {
+        pageHasContent("Welcome to Ohtu Application!");
+    }
+    
+    @Then("user is not created and error {string} is reported")
+    public void userNotCreatedAndTooShortErrorShown(String error) {
+        pageHasContent(error);
+    }
+    
+    // LOGIN TESTS
+    
     @Given("login is selected")
     public void loginIsSelected() {
         driver.get(baseUrl);
@@ -77,6 +108,18 @@ public class Stepdefs {
         element = driver.findElement(By.name("password"));
         element.sendKeys(password);
         element = driver.findElement(By.name("login"));
+        element.submit();  
+    }
+    
+    private void registerWith(String username, String password) {
+        assertTrue(driver.getPageSource().contains("Create username and give password"));
+        WebElement element = driver.findElement(By.name("username"));
+        element.sendKeys(username);
+        element = driver.findElement(By.name("password"));
+        element.sendKeys(password);
+        element = driver.findElement(By.name("passwordConfirmation"));
+        element.sendKeys(password);
+        element = driver.findElement(By.name("signup"));
         element.submit();  
     } 
 }
