@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import org.apache.http.client.fluent.Request;
 
 /**
@@ -19,7 +21,9 @@ import org.apache.http.client.fluent.Request;
 public class Main {
     public static void main(String[] args) throws IOException {
         String url = "https://nhlstatisticsforohtu.herokuapp.com/players";
-
+        LocalDateTime dateObj = LocalDateTime.now();
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+        
         String bodyText = Request.Get(url).execute().returnContent().asString();
 
         System.out.println("json-muotoinen data:");
@@ -32,7 +36,7 @@ public class Main {
         for (Player player : players) {
             System.out.println(player);
         }
-        System.out.println("\nSuomalaiset pelaajat pistejärjestyksessä:");
+        System.out.println("\nPlayers from FIN " + dateObj.format(dateFormat) + ":\n");
         List<Player> finnishPlayers = new ArrayList<Player>();
         for (Player player : players) {
             if (player.getNationality().equals("FIN")) {
