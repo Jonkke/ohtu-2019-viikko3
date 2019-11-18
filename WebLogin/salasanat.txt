@@ -1,0 +1,10 @@
+pekka;akkep
+jukka;akkuj
+semmonen;sielta
+uusikayttaja;salasana
+uusikayttaja66632;salasana
+uusikayttaja78054;salasana
+joo;jaa
+uusikayttaja22501;salasana
+uusikayttaja24873;salasana
+uusikayttaja16037;salasana
