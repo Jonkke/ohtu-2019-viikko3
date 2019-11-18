@@ -7,6 +7,9 @@ package ohtu;
 
 import com.google.gson.Gson;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import org.apache.http.client.fluent.Request;
 
 /**
@@ -28,6 +31,17 @@ public class Main {
         System.out.println("Oliot:");
         for (Player player : players) {
             System.out.println(player);
-        }   
+        }
+        System.out.println("\nSuomalaiset pelaajat pistejärjestyksessä:");
+        List<Player> finnishPlayers = new ArrayList<Player>();
+        for (Player player : players) {
+            if (player.getNationality().equals("FIN")) {
+                finnishPlayers.add(player);
+            }
+        }
+        Collections.sort(finnishPlayers, Collections.reverseOrder());
+        for (Player p : finnishPlayers) {
+            System.out.println(p.toPointString());
+        }
     }
 }
